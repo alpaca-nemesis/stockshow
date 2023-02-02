@@ -15,11 +15,10 @@ class ScheduleConfig(object):
         {
             'id': 'daily_job1',
             'func': '__main__:daily_job1',
-            'args': (1, 2),
             'trigger': 'cron',  # 指定任务触发器 cron
             'day_of_week': 'mon-fri',  # 每周1至周5早上6点执行
-            'hour': 6,
-            'minute': 00
+            'hour': 17,
+            'minute': 30
         }
         ,
         {
@@ -32,10 +31,10 @@ class ScheduleConfig(object):
         }
         ,
         {
-            'id': 'job1',
-            'func': '__main__:job1',
+            'id': 'interval_job1',
+            'func': '__main__:interval_job1',
             'trigger': 'interval',  # 指定任务触发器 interval
-            'minutes': 5
+            'minutes': 500
         }
     ]
     # 是否开启RESTful API
@@ -50,9 +49,9 @@ def hello_world():  # put application's code here
     return 'Hello World!'
 
 
-@app.route('/show/<stock_id>')
+@app.route('/kline/<stock_id>')
 def hello(stock_id):
-    return render_template('show.html', stock=stock_id)
+    return render_template('showKline.html', stock=stock_id)
 
 
 # --------------定时任务------------
@@ -64,12 +63,16 @@ def daily_job1():
         pass
 
 
+# --------------定时任务------------
 # 每周检查一次，更新股票列表和行业信息
 def weekly_job1():
-    if isTradeDay():
-        DBhandle.stockHandle.updateHistoryData()
-    else:
-        pass
+    pass
+
+
+# --------------间隔任务------------
+# 间隔几分钟执行一次，用于盯市
+def interval_job1():
+    pass
 
 
 if __name__ == '__main__':
@@ -77,5 +80,5 @@ if __name__ == '__main__':
     scheduler = APScheduler()                  # 实例化 APScheduler
     scheduler.init_app(app)                    # 把任务列表放入 flask
     scheduler.start()                          # 启动任务列表
-    # app.debug = True
+    app.debug = True
     app.run()
