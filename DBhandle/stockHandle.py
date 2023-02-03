@@ -4,6 +4,7 @@ from getData.getAkshare import getHistoryStocks
 from getData.getAkshare import getUpdateStockStatus
 from getData.getAkshare import getStockList
 
+
 # 获取股票列表
 def getStockListGot(params=()):
     sql = "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='%s' AND TABLE_NAME REGEXP '[0-9]{6}' ORDER BY TABLE_NAME" % common.MYSQL_DB
@@ -19,7 +20,9 @@ def getStockListGot(params=()):
 
 
 # 查询特定股票的历史数据
-def getStockPrice(stock, startDate = '20170101', endDate = time.strftime("%Y%m%d")):
+def getStockPrice(stock, startDate='20170101', endDate=None):
+    if endDate is None:
+        endDate = time.strftime("%Y%m%d")
     sql = 'SELECT * FROM `%s`' % stock
     try:
         stockPrice = common.select(sql)
@@ -60,8 +63,9 @@ def getStockListAll():
 
 
 # 读取历史数据并存储到本地数据库
-def historyDateSave(startDate = '20170101', endDate = time.strftime("%Y%m%d")):
-# def historyDateSave(startDate = '20170101', endDate = '20220913'):
+def historyDateSave(startDate='20170101', endDate=None):
+    if endDate is None:
+        endDate = time.strftime("%Y%m%d")
     stocks = getStockListAll()
     # print(stocks)
     # count = 1
@@ -112,7 +116,6 @@ def updateHistoryData(date=None):
         time.sleep(0.05)
     common.insertLog(message="All stock price refresh", level=3, flag="NORMAL")
 
-        # break
 
 if __name__ == "__main__":
     updateHistoryData()

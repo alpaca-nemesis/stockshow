@@ -4,17 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
-    name="description"
-    content="KLineChart example"/>
-  <title>KLineChart + js</title>
-  <script type="text/javascript" src="/statics/js/klinecharts.js"></script>
-  <script type="text/javascript" src="/statics/js/klineDemo.js"></script>
+    name="{{ stock }}K线图"
+    content="KLineChart"/>
+  <title>{{ stock }} K线图</title>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/klinecharts.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/klineDemo.js') }}"></script>
 </head>
-{% if stock %}
-  <h1>Hello {{ stock }}!</h1>
-{% else %}
-  <h1>Hello, World!</h1>
-{% endif %}
 
 <body style="margin: 0;height: 100%">
 <div id="chart" style="height: 100%"></div>
