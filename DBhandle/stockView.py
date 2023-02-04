@@ -6,11 +6,13 @@ def viewStockPrice(stock, startDate='20170101', endDate=None):
     if endDate is None:
         endDate = time.strftime("%Y%m%d")
     stockPrice = stockHandle.getStockPrice(stock, startDate, endDate)
-    columns = stockPrice.columns
+    klineColumns = ['date', 'openingP', 'closingP', 'maxP', 'minP', 'turnover', 'turnoverP']
+    stockPrice = stockPrice[klineColumns]
+    print(stockPrice)
     prices = list(stockPrice.values)
     # print(type(list(prices)))
     # print(prices)
-    return columns, prices
+    return klineColumns, prices
 
 
 if __name__ == "__main__":

@@ -16,8 +16,10 @@ def hello_world():  # put application's code here
 
 @app.route('/kline/<stock_id>')
 def hello(stock_id):
-    stockView.viewStockPrice(stock=stock_id)
-    return render_template('showKline.html', stock_id=stock_id)
+    columns, prices = stockView.viewStockPrice(stock=stock_id)
+    print(type(prices))
+
+    return render_template('showKline.html', stock_id=stock_id, prices=prices)
 
 
 if __name__ == '__main__':

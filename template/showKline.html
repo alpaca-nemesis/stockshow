@@ -8,34 +8,49 @@
     content="KLineChart"/>
   <title>{{ stock }} K线图</title>
   <script type="text/javascript" src="{{ url_for('static', filename='js/klinecharts.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/klineDemo.js') }}"></script>
+{#  <script type="text/javascript" src="{{ url_for('static', filename='js/klineDemo.js') }}"></script>#}
 </head>
 
 <body style="margin: 0;height: 100%">
 <div id="chart" style="height: 100%"></div>
 <script>
-    window.onload = function () {
-        // 初始化图表
-        var chart = klinecharts.init('chart')
-        // 创建一个主图技术指标
-        chart.createIndicator('MA', false, { id: 'candle_pane' })
-        // 创建一个副图技术指标VOL
-        chart.createIndicator('VOL')
-        // 创建一个副图技术指标MACD
-        chart.createIndicator('MACD')
-        // 加载数据
-        var chartDataList = kLineDataList.map(function (data) {
-            return {
-                timestamp: new Date(data[0]).getTime(),
-                open: +data[1],
-                high: +data[2],
-                low: +data[3],
-                close: +data[4],
-                volume: Math.ceil(+data[5]),
-            }
-        })
-        chart.applyNewData(chartDataList)
-    }
+    var kLineDataList = []
+    {#// {{ prices|tolist }}#}
+        {% for line in prices %}
+            var insertline = []
+            {% for value in line %}
+                insertline.push('{{ value }}')
+            {% endfor %}
+            kLineDataList.push(insertline)
+        {% endfor %}
+
+        window.onload = function () {
+            // 初始化图表
+            var chart = klinecharts.init('chart')
+            // 创建一个主图技术指标
+            chart.createIndicator('MA', false, {id: 'candle_pane'})
+            // 创建一个副图技术指标VOL
+            chart.createIndicator('VOL')
+            // 创建一个副图技术指标MACD
+            chart.createIndicator('MACD')
+            // 加载数据
+            var chartDataList = kLineDataList.map(function (data) {
+
+                {#window.alert(typeof data[0]);#}
+                return {
+
+                    {#timestamp: new Date(toString(data[0])).getTime(),#}
+                    timestamp: new Date(data[0]).getTime(),
+                    open: +data[1],
+                    close: +data[2],
+                    high: +data[3],
+                    low: +data[4],
+                    volume: Math.ceil(+data[5]),
+                    turnover: Math.ceil(+data[6]) // 成交额，非必须字段，如果需要展示技术指标'EMV'和'AVP'，则需要为该字段填充数据
+                }
+            });
+            chart.applyNewData(chartDataList)
+        };
 </script>
 </body>
 </html>

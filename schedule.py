@@ -1,5 +1,6 @@
 from getData.getAkshare import isTradeDay
-import DBhandle
+from analystData.alertSend import sendAlert
+from DBhandle import stockHandle
 
 
 # --------------配置信息------------
@@ -28,7 +29,7 @@ class ScheduleConfig(object):
             'id': 'interval_job1',
             'func': 'schedule:interval_job1',
             'trigger': 'interval',  # 指定任务触发器 interval
-            'minutes': 500
+            'minutes': 1
         }
     ]
     # 是否开启RESTful API
@@ -41,7 +42,7 @@ class ScheduleConfig(object):
 # 每个交易日执行一次，更新所有个股数据
 def daily_job1():
     if isTradeDay():
-        DBhandle.stockHandle.updateHistoryData()
+        stockHandle.updateHistoryData()
     else:
         pass
 
@@ -55,4 +56,4 @@ def weekly_job1():
 # --------------间隔任务------------
 # 间隔几分钟执行一次，用于盯市
 def interval_job1():
-    pass
+    sendAlert('123', '123')
