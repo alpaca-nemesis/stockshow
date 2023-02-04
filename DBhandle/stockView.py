@@ -8,7 +8,7 @@ def viewStockPrice(stock, startDate='20170101', endDate=None):
     stockPrice = stockHandle.getStockPrice(stock, startDate, endDate)
     klineColumns = ['date', 'openingP', 'closingP', 'maxP', 'minP', 'turnover', 'turnoverP']
     stockPrice = stockPrice[klineColumns]
-    print(stockPrice)
+    # print(stockPrice)
     prices = list(stockPrice.values)
     # print(type(list(prices)))
     # print(prices)

@@ -29,7 +29,8 @@ class ScheduleConfig(object):
             'id': 'interval_job1',
             'func': 'schedule:interval_job1',
             'trigger': 'interval',  # 指定任务触发器 interval
-            'minutes': 1
+            # 'seconds': 15
+            'minutes': 500
         }
     ]
     # 是否开启RESTful API

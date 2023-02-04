@@ -1,11 +1,8 @@
 # 用于连接数据库等操作
 
 import MySQLdb
-import os
 from DBhandle import common
 from DBhandle import stockHandle
-from getData import getAkshare
-
 
 dicts = ['stock_list', 'stock_price']
 
