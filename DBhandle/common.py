@@ -88,7 +88,7 @@ def insertSQL(data, sheet, exist='replace'):
     engine_mysql = engine_to_db(MYSQL_DB)
     col_name_list = data.columns.tolist()
     data.to_sql(name=sheet, con=engine_mysql, schema=MYSQL_DB, if_exists=exist,
-                dtype={col_name: NVARCHAR(length=255) for col_name in col_name_list})#, index='code')
+                dtype={col_name: NVARCHAR(length=255) for col_name in col_name_list}, index=False)
 
 
 # 向logger数据库中写入日志

@@ -30,7 +30,7 @@ def getStockPrice(stock, startDate='20170101', endDate=None):
     except  Exception as e:
         print("error :", e)
         common.insertLog(message="Select failed", level=5, flag="ERROR")
-    stockPrice.set_index(0, inplace=True)
+    # stockPrice.set_index(0, inplace=True)
     stockPrice.columns = ['date', 'openingP', 'closingP', 'maxP', 'minP', 'turnover', 'turnoverP', 'amplitude', 'fluctuation', 'fluctuationP', 'turnoverRate']
     return stockPrice
 
@@ -118,6 +118,6 @@ def updateHistoryData(date=None):
 
 
 if __name__ == "__main__":
-    updateHistoryData()
+    getStockPrice('000001')
 
 
