@@ -1,4 +1,3 @@
-{% block leftMenu %}
 <div id="sidebar" class="sidebar responsive ace-save-state">
     <script type="text/javascript">
         try{ace.settings.loadState('sidebar')}catch(e){}
@@ -24,31 +23,33 @@
             <!--<b class="arrow"></b>-->
             <li class="submenu">
                     <li class="open" style="display:none;">
-{#                    {% set loopType = "" %}#}
-{#                    {% for leftMenuTmp in leftMenu.leftMenuList %}#}
-{##}
-{#                        {% if leftMenuTmp.type != loopType %}#}
+                    {% set loopType = "" %}
+                    {% for leftMenuTmp in leftMenu.leftMenuList %}
+
+                        {% if leftMenuTmp.type != loopType %}
                         </li>
                         <li class="open">
-{#                            {% set loopType = leftMenuTmp.type %}#}
-{#                            <a href="#" class="dropdown-toggle">#}
-{#                                <i class="menu-icon fa fa-pencil-square-o"></i>#}
-{#                                {{ leftMenuTmp.type }}#}
-{#                                <b class="arrow fa fa-angle-down"></b>#}
-{#                            </a>#}
-{#                            <b class="arrow"></b>#}
-{##}
-{#                        {% endif %}#}
-{##}
-{#                        <ul class="submenu">#}
+                            {% set loopType = leftMenuTmp.type %}
+                            <a href="#" class="dropdown-toggle">
+                                <i class="menu-icon fa fa-pencil-square-o"></i>
+                                {{ leftMenuTmp.type }}
+                                <b class="arrow fa fa-angle-down"></b>
+                            </a>
+                            <b class="arrow"></b>
+
+                        {% end %}
+
+                        <ul class="submenu">
                             <li>
-                                <a>123123123
+                                <a href="{{ leftMenuTmp.url }}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    {{ leftMenuTmp.name }}
                                 </a>
                                 <b class="arrow"></b>
                             </li>
-{#                        </ul>#}
-{##}
-{#                    {% endfor %}#}
+                        </ul>
+
+                    {% end %}
                         </li>
             </ul>
 
@@ -59,4 +60,3 @@
         <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
 </div>
-{% endblock %}

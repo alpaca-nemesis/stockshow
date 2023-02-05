@@ -3,20 +3,23 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>股票系统 {{ pythonStockVersion }}</title>
-		{% block meta %}{% endblock %}
+		<title>股票系统</title>
+		{% include "common/meta.html" ignore missing %}
+
 	</head>
 
 	<body class="no-skin">
 
-		{% block header %}{% endblock %}
+		{% include "common/header.html" ignore missing %}
 
-		<div class="main-container ace-save-state" id="main-container">
+		<div div class="main" style="display:inline">
+		{% include "common/left_menu.html" ignore missing %}
+
+		<div class="main-container ace-save-state" id="main-container" style="float: left; width: 80%">
 			<script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
 
-			{% block left_menu %}{% endblock %}
 
 			<div class="main-content">
 				<div class="main-content-inner">
@@ -34,5 +37,6 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div><!-- /.main-container -->
+		</div>
 	</body>
 </html>
