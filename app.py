@@ -11,7 +11,7 @@ app = Flask(__name__, static_folder='static', template_folder='template')
 # --------------页面配置------------
 @app.route('/')
 def hello_world():  # put application's code here
-    return 'Hello World!'
+    return render_template('index.html')
 
 
 @app.route('/kline/<stock_id>')
@@ -27,5 +27,5 @@ if __name__ == '__main__':
     scheduler = APScheduler()                  # 实例化 APScheduler
     scheduler.init_app(app)                    # 把任务列表放入 flask
     scheduler.start()                          # 启动任务列表
-    # app.debug = True
+    app.debug = True
     app.run()
